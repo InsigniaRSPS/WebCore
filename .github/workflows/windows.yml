@@ -11,8 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: choco install ninja gperf
-
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v2
         with:
@@ -24,6 +22,8 @@ jobs:
           repo: Jonatino/UltralightCore-src
 
       - run: dir deps/
+
+      - run: choco install ninja gperf
 
       - name: Build WebCore
         run: ./make release x64 local static static_crt no_jit
