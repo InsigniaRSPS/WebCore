@@ -1,0 +1,34 @@
+name: Windows Build
+
+on: [ push ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: choco install ninja gperf
+
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.ACCESS_TOKEN}}
+          workflow: windows.yml
+          workflow_conclusion: success
+          name: ultralight-core
+          path: deps/UltralightCore
+          repo: Jonatino/UltralightCore-src
+
+      - run: dir deps/
+
+      - name: Build WebCore
+        run: ./make release x64 local static static_crt no_jit
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: webcore
+          path: build_release_x64_static_MT_no_jit/out/
