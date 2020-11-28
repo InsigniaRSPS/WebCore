@@ -19,7 +19,7 @@ jobs:
           workflow_conclusion: success
           name: ultralight-core
           path: deps/UltralightCore
-          repo: Jonatino/UltralightCore-src
+          repo: InsigniaRSPS/UltralightCore-src
 
       - run: dir deps/
 
