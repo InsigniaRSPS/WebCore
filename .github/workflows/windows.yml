@@ -11,7 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Download artifact
+      - run: choco install ninja gperf
+
+      - name: Download UltralightCore
         uses: dawidd6/action-download-artifact@v2
         with:
           github_token: ${{secrets.ACCESS_TOKEN}}
@@ -20,10 +22,6 @@ jobs:
           name: ultralight-core
           path: deps/UltralightCore
           repo: InsigniaRSPS/UltralightCore-src
-
-      - run: dir deps/
-
-      - run: choco install ninja gperf
 
       - name: Build WebCore
         run: ./make release x64 local static static_crt no_jit
