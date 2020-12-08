@@ -213,7 +213,7 @@ void JSTestStringifierReadOnlyAttribute::heapSnapshot(JSCell* cell, HeapSnapshot
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestStringifierReadOnlyAttributeOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestStringifierReadOnlyAttributeOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -221,7 +221,7 @@ bool JSTestStringifierReadOnlyAttributeOwner::isReachableFromOpaqueRoots(JSC::Ha
     return false;
 }
 
-void JSTestStringifierReadOnlyAttributeOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestStringifierReadOnlyAttributeOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestStringifierReadOnlyAttribute = static_cast<JSTestStringifierReadOnlyAttribute*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

@@ -35,7 +35,7 @@ void JSUndoItem::visitAdditionalChildren(JSC::SlotVisitor& visitor)
     wrapped().redoHandler().visitJSFunction(visitor);
 }
 
-bool JSUndoItemOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, JSC::SlotVisitor& visitor, const char** reason)
+bool JSUndoItemOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, JSC::SlotVisitor& visitor, const char** reason)
 {
     if (UNLIKELY(reason))
         *reason = "Document is an opaque root.";

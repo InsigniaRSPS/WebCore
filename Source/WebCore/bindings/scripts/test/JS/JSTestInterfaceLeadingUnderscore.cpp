@@ -189,7 +189,7 @@ void JSTestInterfaceLeadingUnderscore::heapSnapshot(JSCell* cell, HeapSnapshotBu
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestInterfaceLeadingUnderscoreOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestInterfaceLeadingUnderscoreOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -197,7 +197,7 @@ bool JSTestInterfaceLeadingUnderscoreOwner::isReachableFromOpaqueRoots(JSC::Hand
     return false;
 }
 
-void JSTestInterfaceLeadingUnderscoreOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestInterfaceLeadingUnderscoreOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestInterfaceLeadingUnderscore = static_cast<JSTestInterfaceLeadingUnderscore*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

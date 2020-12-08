@@ -209,7 +209,7 @@ void JSTestNamedConstructor::heapSnapshot(JSCell* cell, HeapSnapshotBuilder& bui
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestNamedConstructorOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestNamedConstructorOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     auto* jsTestNamedConstructor = jsCast<JSTestNamedConstructor*>(handle.slot()->asCell());
     if (jsTestNamedConstructor->wrapped().hasPendingActivity()) {
@@ -222,7 +222,7 @@ bool JSTestNamedConstructorOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Un
     return false;
 }
 
-void JSTestNamedConstructorOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestNamedConstructorOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestNamedConstructor = static_cast<JSTestNamedConstructor*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

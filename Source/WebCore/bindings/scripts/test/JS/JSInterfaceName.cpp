@@ -180,7 +180,7 @@ void JSInterfaceName::heapSnapshot(JSCell* cell, HeapSnapshotBuilder& builder)
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSInterfaceNameOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSInterfaceNameOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -188,7 +188,7 @@ bool JSInterfaceNameOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> 
     return false;
 }
 
-void JSInterfaceNameOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSInterfaceNameOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsInterfaceName = static_cast<JSInterfaceName*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

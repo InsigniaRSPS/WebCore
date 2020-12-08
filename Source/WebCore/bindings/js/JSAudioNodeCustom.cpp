@@ -33,7 +33,7 @@
 namespace WebCore {
 using namespace JSC;
 
-bool JSAudioNodeOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSAudioNodeOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     auto& node = jsCast<JSAudioNode*>(handle.slot()->asCell())->wrapped();
 

@@ -35,8 +35,8 @@
 
 class JSAPIWrapperObjectHandleOwner : public JSC::WeakHandleOwner {
 public:
-    void finalize(JSC::Handle<JSC::Unknown>, void*) override;
-    bool isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown>, void* context, JSC::SlotVisitor&, const char**) override;
+    void finalize(JSC::JSCHandle<JSC::Unknown>, void*) override;
+    bool isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown>, void* context, JSC::SlotVisitor&, const char**) override;
 };
 
 static JSAPIWrapperObjectHandleOwner* jsAPIWrapperObjectHandleOwner()
@@ -45,7 +45,7 @@ static JSAPIWrapperObjectHandleOwner* jsAPIWrapperObjectHandleOwner()
     return &jsWrapperObjectHandleOwner.get();
 }
 
-void JSAPIWrapperObjectHandleOwner::finalize(JSC::Handle<JSC::Unknown> handle, void*)
+void JSAPIWrapperObjectHandleOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void*)
 {
     auto* wrapperObject = static_cast<JSC::JSAPIWrapperObject*>(handle.get().asCell());
     if (!wrapperObject->wrappedObject())
@@ -55,7 +55,7 @@ void JSAPIWrapperObjectHandleOwner::finalize(JSC::Handle<JSC::Unknown> handle, v
     JSC::WeakSet::deallocate(JSC::WeakImpl::asWeakImpl(handle.slot()));
 }
 
-bool JSAPIWrapperObjectHandleOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, JSC::SlotVisitor& visitor, const char**)
+bool JSAPIWrapperObjectHandleOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, JSC::SlotVisitor& visitor, const char**)
 {
     JSC::JSAPIWrapperObject* wrapperObject = JSC::jsCast<JSC::JSAPIWrapperObject*>(handle.get().asCell());
     // We use the JSGlobalObject when processing weak handles to prevent the situation where using

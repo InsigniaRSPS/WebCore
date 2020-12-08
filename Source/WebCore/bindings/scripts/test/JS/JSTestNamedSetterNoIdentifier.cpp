@@ -278,7 +278,7 @@ void JSTestNamedSetterNoIdentifier::heapSnapshot(JSCell* cell, HeapSnapshotBuild
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestNamedSetterNoIdentifierOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestNamedSetterNoIdentifierOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -286,7 +286,7 @@ bool JSTestNamedSetterNoIdentifierOwner::isReachableFromOpaqueRoots(JSC::Handle<
     return false;
 }
 
-void JSTestNamedSetterNoIdentifierOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestNamedSetterNoIdentifierOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestNamedSetterNoIdentifier = static_cast<JSTestNamedSetterNoIdentifier*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

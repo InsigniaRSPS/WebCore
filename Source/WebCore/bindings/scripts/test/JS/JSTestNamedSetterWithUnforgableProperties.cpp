@@ -347,7 +347,7 @@ void JSTestNamedSetterWithUnforgableProperties::heapSnapshot(JSCell* cell, HeapS
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestNamedSetterWithUnforgablePropertiesOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestNamedSetterWithUnforgablePropertiesOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -355,7 +355,7 @@ bool JSTestNamedSetterWithUnforgablePropertiesOwner::isReachableFromOpaqueRoots(
     return false;
 }
 
-void JSTestNamedSetterWithUnforgablePropertiesOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestNamedSetterWithUnforgablePropertiesOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestNamedSetterWithUnforgableProperties = static_cast<JSTestNamedSetterWithUnforgableProperties*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

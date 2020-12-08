@@ -323,7 +323,7 @@ void JSTestNamedAndIndexedSetterThrowingException::heapSnapshot(JSCell* cell, He
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestNamedAndIndexedSetterThrowingExceptionOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestNamedAndIndexedSetterThrowingExceptionOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -331,7 +331,7 @@ bool JSTestNamedAndIndexedSetterThrowingExceptionOwner::isReachableFromOpaqueRoo
     return false;
 }
 
-void JSTestNamedAndIndexedSetterThrowingExceptionOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestNamedAndIndexedSetterThrowingExceptionOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestNamedAndIndexedSetterThrowingException = static_cast<JSTestNamedAndIndexedSetterThrowingException*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

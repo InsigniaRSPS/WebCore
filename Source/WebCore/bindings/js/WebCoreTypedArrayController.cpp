@@ -53,7 +53,7 @@ bool WebCoreTypedArrayController::isAtomicsWaitAllowedOnCurrentThread()
     return !isMainThread();
 }
 
-bool WebCoreTypedArrayController::JSArrayBufferOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, JSC::SlotVisitor& visitor, const char** reason)
+bool WebCoreTypedArrayController::JSArrayBufferOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, JSC::SlotVisitor& visitor, const char** reason)
 {
     if (UNLIKELY(reason))
         *reason = "ArrayBuffer is opaque root";
@@ -61,7 +61,7 @@ bool WebCoreTypedArrayController::JSArrayBufferOwner::isReachableFromOpaqueRoots
     return visitor.containsOpaqueRoot(wrapper.impl());
 }
 
-void WebCoreTypedArrayController::JSArrayBufferOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void WebCoreTypedArrayController::JSArrayBufferOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto& wrapper = *static_cast<JSC::JSArrayBuffer*>(handle.slot()->asCell());
     uncacheWrapper(*static_cast<DOMWrapperWorld*>(context), wrapper.impl(), &wrapper);

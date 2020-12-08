@@ -36,7 +36,7 @@ inline void* root(CustomPaintCanvas* canvas)
     return canvas;
 }
 
-bool JSPaintRenderingContext2DOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSPaintRenderingContext2DOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     if (UNLIKELY(reason))
         *reason = "Canvas is opaque root";

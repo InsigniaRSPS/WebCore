@@ -327,14 +327,14 @@ const void* Decoder::ptrForOffsetFromBase(ptrdiff_t offset)
     return m_cachedBytecode->data() + offset;
 }
 
-CompactVariableMap::Handle Decoder::handleForEnvironment(CompactVariableEnvironment* environment) const
+CompactVariableMap::JSCHandle Decoder::handleForEnvironment(CompactVariableEnvironment* environment) const
 {
     auto it = m_environmentToHandleMap.find(environment);
     RELEASE_ASSERT(it != m_environmentToHandleMap.end());
     return it->value;
 }
 
-void Decoder::setHandleForEnvironment(CompactVariableEnvironment* environment, const CompactVariableMap::Handle& handle)
+void Decoder::setHandleForEnvironment(CompactVariableEnvironment* environment, const CompactVariableMap::JSCHandle& handle)
 {
     auto addResult = m_environmentToHandleMap.add(environment, handle);
     RELEASE_ASSERT(addResult.isNewEntry);
@@ -1016,26 +1016,26 @@ private:
     bool m_isEverythingCaptured;
 };
 
-class CachedCompactVariableMapHandle : public CachedObject<CompactVariableMap::Handle> {
+class CachedCompactVariableMapHandle : public CachedObject<CompactVariableMap::JSCHandle> {
 public:
-    void encode(Encoder& encoder, const CompactVariableMap::Handle& handle)
+    void encode(Encoder& encoder, const CompactVariableMap::JSCHandle& handle)
     {
         m_environment.encode(encoder, handle.m_environment);
     }
 
-    CompactVariableMap::Handle decode(Decoder& decoder) const
+    CompactVariableMap::JSCHandle decode(Decoder& decoder) const
     {
         bool isNewAllocation;
         CompactVariableEnvironment* environment = m_environment.decode(decoder, isNewAllocation);
         if (!environment) {
             ASSERT(!isNewAllocation);
-            return CompactVariableMap::Handle();
+            return CompactVariableMap::JSCHandle();
         }
 
         if (!isNewAllocation)
             return decoder.handleForEnvironment(environment);
         bool isNewEntry;
-        CompactVariableMap::Handle handle = decoder.vm().m_compactVariableMap->get(environment, isNewEntry);
+        CompactVariableMap::JSCHandle handle = decoder.vm().m_compactVariableMap->get(environment, isNewEntry);
         if (!isNewEntry) {
             decoder.addFinalizer([=] {
                 delete environment;

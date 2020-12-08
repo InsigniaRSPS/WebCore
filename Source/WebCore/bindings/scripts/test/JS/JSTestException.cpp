@@ -189,7 +189,7 @@ void JSTestException::heapSnapshot(JSCell* cell, HeapSnapshotBuilder& builder)
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestExceptionOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestExceptionOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -197,7 +197,7 @@ bool JSTestExceptionOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> 
     return false;
 }
 
-void JSTestExceptionOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestExceptionOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestException = static_cast<JSTestException*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

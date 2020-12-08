@@ -439,7 +439,7 @@ void JSTestCEReactions::heapSnapshot(JSCell* cell, HeapSnapshotBuilder& builder)
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestCEReactionsOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestCEReactionsOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -447,7 +447,7 @@ bool JSTestCEReactionsOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown
     return false;
 }
 
-void JSTestCEReactionsOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestCEReactionsOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestCEReactions = static_cast<JSTestCEReactions*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

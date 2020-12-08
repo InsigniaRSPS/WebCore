@@ -44,7 +44,7 @@ void JSMutationObserver::visitAdditionalChildren(JSC::SlotVisitor& visitor)
     wrapped().callback().visitJSFunction(visitor);
 }
 
-bool JSMutationObserverOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char**reason)
+bool JSMutationObserverOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char**reason)
 {
     for (auto* node : jsCast<JSMutationObserver*>(handle.slot()->asCell())->wrapped().observedNodes()) {
         if (visitor.containsOpaqueRoot(root(node))) {

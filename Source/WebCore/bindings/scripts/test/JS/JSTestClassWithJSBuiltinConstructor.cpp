@@ -172,7 +172,7 @@ void JSTestClassWithJSBuiltinConstructor::heapSnapshot(JSCell* cell, HeapSnapsho
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestClassWithJSBuiltinConstructorOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestClassWithJSBuiltinConstructorOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -180,7 +180,7 @@ bool JSTestClassWithJSBuiltinConstructorOwner::isReachableFromOpaqueRoots(JSC::H
     return false;
 }
 
-void JSTestClassWithJSBuiltinConstructorOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestClassWithJSBuiltinConstructorOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestClassWithJSBuiltinConstructor = static_cast<JSTestClassWithJSBuiltinConstructor*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

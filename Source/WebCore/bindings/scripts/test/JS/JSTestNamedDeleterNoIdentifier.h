@@ -65,8 +65,8 @@ protected:
 
 class JSTestNamedDeleterNoIdentifierOwner : public JSC::WeakHandleOwner {
 public:
-    virtual bool isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown>, void* context, JSC::SlotVisitor&, const char**);
-    virtual void finalize(JSC::Handle<JSC::Unknown>, void* context);
+    virtual bool isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown>, void* context, JSC::SlotVisitor&, const char**);
+    virtual void finalize(JSC::JSCHandle<JSC::Unknown>, void* context);
 };
 
 inline JSC::WeakHandleOwner* wrapperOwner(DOMWrapperWorld&, TestNamedDeleterNoIdentifier*)

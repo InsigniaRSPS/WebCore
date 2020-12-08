@@ -206,7 +206,7 @@ void JSTestStringifierOperationImplementedAs::heapSnapshot(JSCell* cell, HeapSna
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestStringifierOperationImplementedAsOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestStringifierOperationImplementedAsOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -214,7 +214,7 @@ bool JSTestStringifierOperationImplementedAsOwner::isReachableFromOpaqueRoots(JS
     return false;
 }
 
-void JSTestStringifierOperationImplementedAsOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestStringifierOperationImplementedAsOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestStringifierOperationImplementedAs = static_cast<JSTestStringifierOperationImplementedAs*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

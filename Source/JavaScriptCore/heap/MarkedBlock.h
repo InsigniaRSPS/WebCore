@@ -60,7 +60,7 @@ class MarkedBlock {
 
 public:
     class Footer;
-    class Handle;
+    class JSCHandle;
 private:
     friend class Footer;
     friend class JSCHandle;

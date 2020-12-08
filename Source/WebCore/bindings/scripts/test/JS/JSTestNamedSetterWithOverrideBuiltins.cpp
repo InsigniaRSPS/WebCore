@@ -265,7 +265,7 @@ void JSTestNamedSetterWithOverrideBuiltins::heapSnapshot(JSCell* cell, HeapSnaps
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestNamedSetterWithOverrideBuiltinsOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestNamedSetterWithOverrideBuiltinsOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -273,7 +273,7 @@ bool JSTestNamedSetterWithOverrideBuiltinsOwner::isReachableFromOpaqueRoots(JSC:
     return false;
 }
 
-void JSTestNamedSetterWithOverrideBuiltinsOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestNamedSetterWithOverrideBuiltinsOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestNamedSetterWithOverrideBuiltins = static_cast<JSTestNamedSetterWithOverrideBuiltins*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

@@ -204,7 +204,7 @@ void JSTestEnabledForContext::heapSnapshot(JSCell* cell, HeapSnapshotBuilder& bu
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestEnabledForContextOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestEnabledForContextOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -212,7 +212,7 @@ bool JSTestEnabledForContextOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::U
     return false;
 }
 
-void JSTestEnabledForContextOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestEnabledForContextOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestEnabledForContext = static_cast<JSTestEnabledForContext*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

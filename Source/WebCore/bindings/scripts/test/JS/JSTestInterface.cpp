@@ -1026,7 +1026,7 @@ void JSTestInterface::heapSnapshot(JSCell* cell, HeapSnapshotBuilder& builder)
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestInterfaceOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestInterfaceOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     auto* jsTestInterface = jsCast<JSTestInterface*>(handle.slot()->asCell());
     if (jsTestInterface->wrapped().hasPendingActivity()) {
@@ -1039,7 +1039,7 @@ bool JSTestInterfaceOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> 
     return false;
 }
 
-void JSTestInterfaceOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestInterfaceOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestInterface = static_cast<JSTestInterface*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

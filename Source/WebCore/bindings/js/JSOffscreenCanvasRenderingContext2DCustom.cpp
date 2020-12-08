@@ -28,7 +28,7 @@ inline void* root(OffscreenCanvas* canvas)
     return canvas;
 }
 
-bool JSOffscreenCanvasRenderingContext2DOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSOffscreenCanvasRenderingContext2DOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     if (UNLIKELY(reason))
         *reason = "Canvas is opaque root";

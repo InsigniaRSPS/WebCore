@@ -89,8 +89,8 @@ public:
     void cacheOffset(ptrdiff_t, void*);
     WTF::Optional<void*> cachedPtrForOffset(ptrdiff_t);
     const void* ptrForOffsetFromBase(ptrdiff_t);
-    CompactVariableMap::Handle handleForEnvironment(CompactVariableEnvironment*) const;
-    void setHandleForEnvironment(CompactVariableEnvironment*, const CompactVariableMap::Handle&);
+    CompactVariableMap::JSCHandle handleForEnvironment(CompactVariableEnvironment*) const;
+    void setHandleForEnvironment(CompactVariableEnvironment*, const CompactVariableMap::JSCHandle&);
     void addLeafExecutable(const UnlinkedFunctionExecutable*, ptrdiff_t);
     RefPtr<SourceProvider> provider() const;
 
@@ -104,7 +104,7 @@ private:
     Ref<CachedBytecode> m_cachedBytecode;
     HashMap<ptrdiff_t, void*> m_offsetToPtrMap;
     Vector<std::function<void()>> m_finalizers;
-    HashMap<CompactVariableEnvironment*, CompactVariableMap::Handle> m_environmentToHandleMap;
+    HashMap<CompactVariableEnvironment*, CompactVariableMap::JSCHandle> m_environmentToHandleMap;
     RefPtr<SourceProvider> m_provider;
 };
 

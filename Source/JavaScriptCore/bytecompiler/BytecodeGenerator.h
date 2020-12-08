@@ -1118,7 +1118,7 @@ namespace JSC {
                     newDerivedContextType = DerivedContextType::DerivedMethodContext;
             }
 
-            Optional<CompactVariableMap::Handle> optionalVariablesUnderTDZ = getVariablesUnderTDZ();
+            Optional<CompactVariableMap::JSCHandle> optionalVariablesUnderTDZ = getVariablesUnderTDZ();
 
             // FIXME: These flags, ParserModes and propagation to XXXCodeBlocks should be reorganized.
             // https://bugs.webkit.org/show_bug.cgi?id=151547
@@ -1130,7 +1130,7 @@ namespace JSC {
             return UnlinkedFunctionExecutable::create(m_vm, m_scopeNode->source(), metadata, isBuiltinFunction() ? UnlinkedBuiltinFunction : UnlinkedNormalFunction, constructAbility, scriptMode(), WTFMove(optionalVariablesUnderTDZ), newDerivedContextType);
         }
 
-        Optional<CompactVariableMap::Handle> getVariablesUnderTDZ();
+        Optional<CompactVariableMap::JSCHandle> getVariablesUnderTDZ();
 
         RegisterID* emitConstructVarargs(RegisterID* dst, RegisterID* func, RegisterID* thisRegister, RegisterID* arguments, RegisterID* firstFreeRegister, int32_t firstVarArgOffset, const JSTextPosition& divot, const JSTextPosition& divotStart, const JSTextPosition& divotEnd, DebuggableCall);
         template<typename CallOp>
@@ -1297,7 +1297,7 @@ namespace JSC {
         bool m_hasCachedVariablesUnderTDZ { false };
         DerivedContextType m_derivedContextType { DerivedContextType::None };
 
-        CompactVariableMap::Handle m_cachedVariablesUnderTDZ;
+        CompactVariableMap::JSCHandle m_cachedVariablesUnderTDZ;
 
         struct CatchEntry {
             TryData* tryData;

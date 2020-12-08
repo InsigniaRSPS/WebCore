@@ -33,7 +33,7 @@
 
 class JSAPIWrapperGlobalObjectHandleOwner : public JSC::WeakHandleOwner {
 public:
-    void finalize(JSC::Handle<JSC::Unknown>, void*) override;
+    void finalize(JSC::JSCHandle<JSC::Unknown>, void*) override;
 };
 
 static JSAPIWrapperGlobalObjectHandleOwner* jsAPIWrapperGlobalObjectHandleOwner()
@@ -42,7 +42,7 @@ static JSAPIWrapperGlobalObjectHandleOwner* jsAPIWrapperGlobalObjectHandleOwner(
     return &jsWrapperGlobalObjectHandleOwner.get();
 }
 
-void JSAPIWrapperGlobalObjectHandleOwner::finalize(JSC::Handle<JSC::Unknown> handle, void*)
+void JSAPIWrapperGlobalObjectHandleOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void*)
 {
     auto* wrapperObject = static_cast<JSC::JSAPIWrapperGlobalObject*>(handle.get().asCell());
     if (!wrapperObject->wrappedObject())

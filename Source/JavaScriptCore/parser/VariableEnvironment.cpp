@@ -151,7 +151,7 @@ VariableEnvironment CompactVariableEnvironment::toVariableEnvironment() const
     return result;
 }
 
-CompactVariableMap::Handle CompactVariableMap::get(const VariableEnvironment& env)
+CompactVariableMap::JSCHandle CompactVariableMap::get(const VariableEnvironment& env)
 {
     auto* environment = new CompactVariableEnvironment(env);
     bool isNewEntry;
@@ -161,19 +161,19 @@ CompactVariableMap::Handle CompactVariableMap::get(const VariableEnvironment& en
     return handle;
 }
 
-CompactVariableMap::Handle CompactVariableMap::get(CompactVariableEnvironment* environment, bool& isNewEntry)
+CompactVariableMap::JSCHandle CompactVariableMap::get(CompactVariableEnvironment* environment, bool& isNewEntry)
 {
     CompactVariableMapKey key { *environment };
     auto addResult = m_map.add(key, 1);
     isNewEntry = addResult.isNewEntry;
     if (addResult.isNewEntry)
-        return CompactVariableMap::Handle(*environment, *this);
+        return CompactVariableMap::JSCHandle(*environment, *this);
 
     ++addResult.iterator->value;
-    return CompactVariableMap::Handle(addResult.iterator->key.environment(), *this);
+    return CompactVariableMap::JSCHandle(addResult.iterator->key.environment(), *this);
 }
 
-CompactVariableMap::Handle::~Handle()
+CompactVariableMap::JSCHandle::~JSCHandle()
 {
     if (!m_map) {
         ASSERT(!m_environment);
@@ -192,7 +192,7 @@ CompactVariableMap::Handle::~Handle()
     }
 }
 
-CompactVariableMap::Handle::Handle(const CompactVariableMap::Handle& other)
+CompactVariableMap::JSCHandle::JSCHandle(const CompactVariableMap::JSCHandle& other)
     : m_environment(other.m_environment)
     , m_map(other.m_map)
 {
@@ -203,7 +203,7 @@ CompactVariableMap::Handle::Handle(const CompactVariableMap::Handle& other)
     }
 }
 
-CompactVariableMap::Handle::Handle(CompactVariableEnvironment& environment, CompactVariableMap& map)
+CompactVariableMap::JSCHandle::JSCHandle(CompactVariableEnvironment& environment, CompactVariableMap& map)
     : m_environment(&environment)
     , m_map(&map)
 { 

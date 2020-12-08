@@ -72,7 +72,7 @@ static void jscWeakValueClear(JSCWeakValue* weakValue)
 
 class JSCWeakValueHandleOwner : public JSC::WeakHandleOwner {
 public:
-    void finalize(JSC::Handle<JSC::Unknown>, void* context) override
+    void finalize(JSC::JSCHandle<JSC::Unknown>, void* context) override
     {
         auto* weakValue = JSC_WEAK_VALUE(context);
         jscWeakValueClear(weakValue);

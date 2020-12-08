@@ -251,7 +251,7 @@ void JSTestNamedDeleterThrowingException::heapSnapshot(JSCell* cell, HeapSnapsho
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestNamedDeleterThrowingExceptionOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestNamedDeleterThrowingExceptionOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -259,7 +259,7 @@ bool JSTestNamedDeleterThrowingExceptionOwner::isReachableFromOpaqueRoots(JSC::H
     return false;
 }
 
-void JSTestNamedDeleterThrowingExceptionOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestNamedDeleterThrowingExceptionOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestNamedDeleterThrowingException = static_cast<JSTestNamedDeleterThrowingException*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

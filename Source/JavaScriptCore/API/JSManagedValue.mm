@@ -41,8 +41,8 @@
 
 class JSManagedValueHandleOwner : public JSC::WeakHandleOwner {
 public:
-    void finalize(JSC::Handle<JSC::Unknown>, void* context) override;
-    bool isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown>, void* context, JSC::SlotVisitor&, const char**) override;
+    void finalize(JSC::JSCHandle<JSC::Unknown>, void* context) override;
+    bool isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown>, void* context, JSC::SlotVisitor&, const char**) override;
 };
 
 static JSManagedValueHandleOwner& managedValueHandleOwner()
@@ -181,7 +181,7 @@ static JSManagedValueHandleOwner& managedValueHandleOwner()
 - (void)disconnectValue;
 @end
 
-bool JSManagedValueHandleOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown>, void* context, JSC::SlotVisitor& visitor, const char** reason)
+bool JSManagedValueHandleOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown>, void* context, JSC::SlotVisitor& visitor, const char** reason)
 {
     if (UNLIKELY(reason))
         *reason = "JSManagedValue is opaque root";
@@ -189,7 +189,7 @@ bool JSManagedValueHandleOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unkn
     return visitor.containsOpaqueRoot((__bridge void*)managedValue);
 }
 
-void JSManagedValueHandleOwner::finalize(JSC::Handle<JSC::Unknown>, void* context)
+void JSManagedValueHandleOwner::finalize(JSC::JSCHandle<JSC::Unknown>, void* context)
 {
     JSManagedValue *managedValue = (__bridge JSManagedValue *)context;
     [managedValue disconnectValue];

@@ -2885,7 +2885,7 @@ void BytecodeGenerator::pushTDZVariables(const VariableEnvironment& environment,
     m_cachedVariablesUnderTDZ = { };
 }
 
-Optional<CompactVariableMap::Handle> BytecodeGenerator::getVariablesUnderTDZ()
+Optional<CompactVariableMap::JSCHandle> BytecodeGenerator::getVariablesUnderTDZ()
 {
     if (m_cachedVariablesUnderTDZ) {
         if (!m_hasCachedVariablesUnderTDZ) {

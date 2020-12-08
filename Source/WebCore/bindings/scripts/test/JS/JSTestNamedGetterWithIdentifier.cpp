@@ -244,7 +244,7 @@ void JSTestNamedGetterWithIdentifier::heapSnapshot(JSCell* cell, HeapSnapshotBui
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestNamedGetterWithIdentifierOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestNamedGetterWithIdentifierOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -252,7 +252,7 @@ bool JSTestNamedGetterWithIdentifierOwner::isReachableFromOpaqueRoots(JSC::Handl
     return false;
 }
 
-void JSTestNamedGetterWithIdentifierOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestNamedGetterWithIdentifierOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestNamedGetterWithIdentifier = static_cast<JSTestNamedGetterWithIdentifier*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

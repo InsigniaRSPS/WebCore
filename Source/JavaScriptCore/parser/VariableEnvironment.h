@@ -209,34 +209,34 @@ namespace JSC {
 
 class CompactVariableMap : public RefCounted<CompactVariableMap> {
 public:
-    class Handle {
+    class JSCHandle {
         friend class CachedCompactVariableMapHandle;
 
     public:
-        Handle() = default;
+        JSCHandle() = default;
 
-        Handle(CompactVariableEnvironment&, CompactVariableMap&);
+        JSCHandle(CompactVariableEnvironment&, CompactVariableMap&);
 
-        Handle(Handle&& other)
+        JSCHandle(JSCHandle&& other)
         {
             swap(other);
         }
-        Handle& operator=(Handle&& other)
+        JSCHandle& operator=(JSCHandle&& other)
         {
-            Handle handle(WTFMove(other));
+            JSCHandle handle(WTFMove(other));
             swap(handle);
             return *this;
         }
 
-        Handle(const Handle&);
-        Handle& operator=(const Handle& other)
+        JSCHandle(const JSCHandle&);
+        JSCHandle& operator=(const JSCHandle& other)
         {
-            Handle handle(other);
+            JSCHandle handle(other);
             swap(handle);
             return *this;
         }
 
-        ~Handle();
+        ~JSCHandle();
 
         explicit operator bool() const { return !!m_map; }
 
@@ -246,7 +246,7 @@ public:
         }
 
     private:
-        void swap(Handle& other)
+        void swap(JSCHandle& other)
         {
             std::swap(other.m_environment, m_environment);
             std::swap(other.m_map, m_map);
@@ -256,13 +256,13 @@ public:
         RefPtr<CompactVariableMap> m_map;
     };
 
-    Handle get(const VariableEnvironment&);
+    JSCHandle get(const VariableEnvironment&);
 
 private:
     friend class JSCHandle;
     friend class CachedCompactVariableMapHandle;
 
-    Handle get(CompactVariableEnvironment*, bool& isNewEntry);
+    JSCHandle get(CompactVariableEnvironment*, bool& isNewEntry);
 
     HashMap<CompactVariableMapKey, unsigned> m_map;
 };

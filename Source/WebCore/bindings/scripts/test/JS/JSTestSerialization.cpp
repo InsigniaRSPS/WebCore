@@ -667,7 +667,7 @@ void JSTestSerialization::heapSnapshot(JSCell* cell, HeapSnapshotBuilder& builde
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestSerializationOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestSerializationOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -675,7 +675,7 @@ bool JSTestSerializationOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unkno
     return false;
 }
 
-void JSTestSerializationOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestSerializationOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestSerialization = static_cast<JSTestSerialization*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);

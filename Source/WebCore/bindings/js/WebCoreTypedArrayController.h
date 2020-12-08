@@ -48,8 +48,8 @@ public:
 private:
     class JSArrayBufferOwner : public JSC::WeakHandleOwner {
     public:
-        bool isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown>, void* context, JSC::SlotVisitor&, const char**) override;
-        void finalize(JSC::Handle<JSC::Unknown>, void* context) override;
+        bool isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown>, void* context, JSC::SlotVisitor&, const char**) override;
+        void finalize(JSC::JSCHandle<JSC::Unknown>, void* context) override;
     };
 
     JSArrayBufferOwner m_owner;

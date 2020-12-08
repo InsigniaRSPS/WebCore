@@ -2647,7 +2647,7 @@ void JSTestGlobalObject::heapSnapshot(JSCell* cell, HeapSnapshotBuilder& builder
     Base::heapSnapshot(cell, builder);
 }
 
-bool JSTestGlobalObjectOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
+bool JSTestGlobalObjectOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, SlotVisitor& visitor, const char** reason)
 {
     UNUSED_PARAM(handle);
     UNUSED_PARAM(visitor);
@@ -2655,7 +2655,7 @@ bool JSTestGlobalObjectOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknow
     return false;
 }
 
-void JSTestGlobalObjectOwner::finalize(JSC::Handle<JSC::Unknown> handle, void* context)
+void JSTestGlobalObjectOwner::finalize(JSC::JSCHandle<JSC::Unknown> handle, void* context)
 {
     auto* jsTestGlobalObject = static_cast<JSTestGlobalObject*>(handle.slot()->asCell());
     auto& world = *static_cast<DOMWrapperWorld*>(context);
