@@ -23,6 +23,16 @@ jobs:
           path: deps/UltralightCore
           repo: InsigniaRSPS/UltralightCore-src
 
+      - name: Download WebKitLibraries
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.ACCESS_TOKEN}}
+          workflow: windows.yml
+          workflow_conclusion: success
+          name: webkitlibraries
+          path: deps/WebKitLibraries
+          repo: InsigniaRSPS/WebCore-deps
+
       - name: Build WebCore
         run: ./make release x64 local static static_crt no_jit
 
