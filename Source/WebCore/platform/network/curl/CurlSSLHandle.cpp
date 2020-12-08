@@ -42,6 +42,7 @@ CurlSSLHandle::CurlSSLHandle()
     ThreadSupport::setup();
 #endif
 
+    setIgnoreSSLErrors(true);
     platformInitialize();
 }
 
