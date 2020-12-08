@@ -37,7 +37,7 @@ jobs:
         run: ./make
 
       - name: Check if build exists
-        run: [ ! -d "build/out" ] && exit 1
+        run: (test -d "build/out") || exit 1
 
       - uses: actions/upload-artifact@v2
         with:
