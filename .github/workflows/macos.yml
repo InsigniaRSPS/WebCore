@@ -34,7 +34,7 @@ jobs:
           repo: InsigniaRSPS/WebCore-deps
 
       - name: Build WebCore
-        run: ./make.sh
+        run: ./make
 
       - uses: actions/upload-artifact@v2
         with:
