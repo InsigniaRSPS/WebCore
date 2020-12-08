@@ -431,7 +431,7 @@ private:
     static const size_t minExtraMemory = 256;
     
     class FinalizerOwner : public WeakHandleOwner {
-        void finalize(Handle<Unknown>, void* context) override;
+        void finalize(JSCHandle<Unknown>, void* context) override;
     };
 
     JS_EXPORT_PRIVATE bool isValidAllocation(size_t);

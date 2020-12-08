@@ -32,7 +32,7 @@
 #include "CallFrame.h"
 #include "DeferGC.h"
 #include "FreeListInlines.h"
-#include "Handle.h"
+#include "JSCHandle.h"
 #include "HeapInlines.h"
 #include "IsoSubspaceInlines.h"
 #include "JSBigInt.h"

@@ -37,10 +37,10 @@ namespace JSC {
     lifetime is guaranteed by something else.
 */
 
-template <class T> class Handle;
+template <class T> class JSCHandle;
 
 // Creating a JSValue Handle is invalid
-template <> class Handle<JSValue>;
+template <> class JSCHandle<JSValue>;
 
 class HandleBase {
     template <typename T> friend class Weak;
@@ -93,7 +93,7 @@ template <typename Base, typename T> struct HandleConverter {
 };
 
 template <typename Base> struct HandleConverter<Base, Unknown> {
-    Handle<JSObject> asObject() const;
+    JSCHandle<JSObject> asObject() const;
     bool isObject() const { return jsValue().isObject(); }
     bool getNumber(double number) const { return jsValue().getNumber(number); }
     WTF::String getString(ExecState*) const;
@@ -106,22 +106,22 @@ private:
     }
 };
 
-template <typename T> class Handle : public HandleBase, public HandleConverter<Handle<T>, T> {
+template <typename T> class JSCHandle : public HandleBase, public HandleConverter<JSCHandle<T>, T> {
 public:
     template <typename A, typename B> friend struct HandleConverter;
     typedef typename HandleTypes<T>::ExternalType ExternalType;
-    template <typename U> Handle(Handle<U> o)
+    template <typename U> JSCHandle(JSCHandle<U> o)
     {
         typename HandleTypes<T>::template validateUpcast<U>();
         setSlot(o.slot());
     }
 
-    void swap(Handle& other) { HandleBase::swap(other); }
+    void swap(JSCHandle& other) { HandleBase::swap(other); }
 
     ExternalType get() const { return HandleTypes<T>::getFromSlot(this->slot()); }
 
 protected:
-    Handle(HandleSlot slot = 0)
+    JSCHandle(HandleSlot slot = 0)
         : HandleBase(slot)
     {
     }
@@ -130,53 +130,53 @@ private:
     friend class HandleSet;
     friend class WeakBlock;
 
-    static Handle<T> wrapSlot(HandleSlot slot)
+    static JSCHandle<T> wrapSlot(HandleSlot slot)
     {
-        return Handle<T>(slot);
+        return JSCHandle<T>(slot);
     }
 };
 
-template <typename Base> Handle<JSObject> HandleConverter<Base, Unknown>::asObject() const
+template <typename Base> JSCHandle<JSObject> HandleConverter<Base, Unknown>::asObject() const
 {
     return Handle<JSObject>::wrapSlot(static_cast<const Base*>(this)->slot());
 }
 
-template <typename T, typename U> inline bool operator==(const Handle<T>& a, const Handle<U>& b)
+template <typename T, typename U> inline bool operator==(const JSCHandle<T>& a, const JSCHandle<U>& b)
 { 
     return a.get() == b.get(); 
 }
 
-template <typename T, typename U> inline bool operator==(const Handle<T>& a, U* b)
+template <typename T, typename U> inline bool operator==(const JSCHandle<T>& a, U* b)
 { 
     return a.get() == b; 
 }
 
-template <typename T, typename U> inline bool operator==(T* a, const Handle<U>& b) 
+template <typename T, typename U> inline bool operator==(T* a, const JSCHandle<U>& b)
 {
     return a == b.get(); 
 }
 
-template <typename T, typename U> inline bool operator!=(const Handle<T>& a, const Handle<U>& b)
+template <typename T, typename U> inline bool operator!=(const JSCHandle<T>& a, const JSCHandle<U>& b)
 { 
     return a.get() != b.get(); 
 }
 
-template <typename T, typename U> inline bool operator!=(const Handle<T>& a, U* b)
+template <typename T, typename U> inline bool operator!=(const JSCHandle<T>& a, U* b)
 {
     return a.get() != b; 
 }
 
-template <typename T, typename U> inline bool operator!=(T* a, const Handle<U>& b)
+template <typename T, typename U> inline bool operator!=(T* a, const JSCHandle<U>& b)
 { 
     return a != b.get(); 
 }
 
-template <typename T, typename U> inline bool operator!=(const Handle<T>& a, JSValue b)
+template <typename T, typename U> inline bool operator!=(const JSCHandle<T>& a, JSValue b)
 {
     return a.get() != b; 
 }
 
-template <typename T, typename U> inline bool operator!=(JSValue a, const Handle<U>& b)
+template <typename T, typename U> inline bool operator!=(JSValue a, const JSCHandle<U>& b)
 { 
     return a != b.get(); 
 }

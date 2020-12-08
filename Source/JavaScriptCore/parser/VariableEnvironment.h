@@ -259,7 +259,7 @@ public:
     Handle get(const VariableEnvironment&);
 
 private:
-    friend class Handle;
+    friend class JSCHandle;
     friend class CachedCompactVariableMapHandle;
 
     Handle get(CompactVariableEnvironment*, bool& isNewEntry);

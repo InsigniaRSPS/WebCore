@@ -31,18 +31,18 @@
 namespace JSC {
 
 class SlotVisitor;
-template<typename T> class Handle;
+template<typename T> class JSCHandle;
 
 WeakHandleOwner::~WeakHandleOwner()
 {
 }
 
-bool WeakHandleOwner::isReachableFromOpaqueRoots(Handle<Unknown>, void*, SlotVisitor&, const char**)
+bool WeakHandleOwner::isReachableFromOpaqueRoots(JSCHandle<Unknown>, void*, SlotVisitor&, const char**)
 {
     return false;
 }
 
-void WeakHandleOwner::finalize(Handle<Unknown>, void*)
+void WeakHandleOwner::finalize(JSCHandle<Unknown>, void*)
 {
 }
 

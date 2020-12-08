@@ -49,7 +49,7 @@ inline void WeakBlock::finalize(WeakImpl* weakImpl)
     WeakHandleOwner* weakHandleOwner = weakImpl->weakHandleOwner();
     if (!weakHandleOwner)
         return;
-    weakHandleOwner->finalize(Handle<Unknown>::wrapSlot(&const_cast<JSValue&>(weakImpl->jsValue())), weakImpl->context());
+    weakHandleOwner->finalize(JSCHandle<Unknown>::wrapSlot(&const_cast<JSValue&>(weakImpl->jsValue())), weakImpl->context());
 }
 
 } // namespace JSC

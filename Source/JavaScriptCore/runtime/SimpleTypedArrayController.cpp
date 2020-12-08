@@ -58,7 +58,7 @@ bool SimpleTypedArrayController::isAtomicsWaitAllowedOnCurrentThread()
     return true;
 }
 
-bool SimpleTypedArrayController::JSArrayBufferOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, JSC::SlotVisitor& visitor, const char** reason)
+bool SimpleTypedArrayController::JSArrayBufferOwner::isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown> handle, void*, JSC::SlotVisitor& visitor, const char** reason)
 {
     if (UNLIKELY(reason))
         *reason = "JSArrayBuffer is opaque root";
@@ -66,7 +66,7 @@ bool SimpleTypedArrayController::JSArrayBufferOwner::isReachableFromOpaqueRoots(
     return visitor.containsOpaqueRoot(wrapper.impl());
 }
 
-void SimpleTypedArrayController::JSArrayBufferOwner::finalize(JSC::Handle<JSC::Unknown>, void*) { }
+void SimpleTypedArrayController::JSArrayBufferOwner::finalize(JSC::JSCHandle<JSC::Unknown>, void*) { }
 
 } // namespace JSC
 

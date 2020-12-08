@@ -120,7 +120,7 @@ void WeakBlock::specializedVisit(ContainerType& container, SlotVisitor& visitor)
         if (UNLIKELY(visitor.isBuildingHeapSnapshot()))
             reasonPtr = &reason;
 
-        if (!weakHandleOwner->isReachableFromOpaqueRoots(Handle<Unknown>::wrapSlot(&const_cast<JSValue&>(jsValue)), weakImpl->context(), visitor, reasonPtr))
+        if (!weakHandleOwner->isReachableFromOpaqueRoots(JSCHandle<Unknown>::wrapSlot(&const_cast<JSValue&>(jsValue)), weakImpl->context(), visitor, reasonPtr))
             continue;
 
         visitor.appendUnbarriered(jsValue);

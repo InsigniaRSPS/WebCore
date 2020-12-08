@@ -26,7 +26,7 @@
 #pragma once
 
 #include <wtf/Assertions.h>
-#include "Handle.h"
+#include "JSCHandle.h"
 #include "HandleSet.h"
 
 namespace JSC {
@@ -34,25 +34,25 @@ namespace JSC {
 class VM;
 
 // A strongly referenced handle that prevents the object it points to from being garbage collected.
-template <typename T> class Strong : public Handle<T> {
-    using Handle<T>::slot;
-    using Handle<T>::setSlot;
+template <typename T> class Strong : public JSCHandle<T> {
+    using JSCHandle<T>::slot;
+    using JSCHandle<T>::setSlot;
     template <typename U> friend class Strong;
 
 public:
-    typedef typename Handle<T>::ExternalType ExternalType;
+    typedef typename JSCHandle<T>::ExternalType ExternalType;
     
     Strong()
-        : Handle<T>()
+        : JSCHandle<T>()
     {
     }
     
     Strong(VM&, ExternalType = ExternalType());
 
-    Strong(VM&, Handle<T>);
+    Strong(VM&, JSCHandle<T>);
     
     Strong(const Strong& other)
-        : Handle<T>()
+        : JSCHandle<T>()
     {
         if (!other.slot())
             return;
@@ -61,7 +61,7 @@ public:
     }
 
     template <typename U> Strong(const Strong<U>& other)
-        : Handle<T>()
+        : JSCHandle<T>()
     {
         if (!other.slot())
             return;
@@ -72,7 +72,7 @@ public:
     enum HashTableDeletedValueTag { HashTableDeletedValue };
     bool isHashTableDeletedValue() const { return slot() == hashTableDeletedValue(); }
     Strong(HashTableDeletedValueTag)
-        : Handle<T>(hashTableDeletedValue())
+        : JSCHandle<T>(hashTableDeletedValue())
     {
     }
 
@@ -87,7 +87,7 @@ public:
 
     void swap(Strong& other)
     {
-        Handle<T>::swap(other);
+        JSCHandle<T>::swap(other);
     }
 
     ExternalType get() const { return HandleTypes<T>::getFromSlot(this->slot()); }

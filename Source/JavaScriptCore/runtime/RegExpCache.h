@@ -63,7 +63,7 @@ private:
 
     static const int maxStrongCacheableEntries = 32;
 
-    void finalize(Handle<Unknown>, void* context) override;
+    void finalize(JSCHandle<Unknown>, void* context) override;
 
     RegExp* ensureEmptyRegExpSlow(VM&);
 

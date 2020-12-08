@@ -587,7 +587,7 @@ set(JavaScriptCore_PRIVATE_FRAMEWORK_HEADERS
     heap/GCLogging.h
     heap/GCRequest.h
     heap/GCSegmentedArray.h
-    heap/Handle.h
+        heap/JSCHandle.h
     heap/HandleBlock.h
     heap/HandleSet.h
     heap/HandleTypes.h

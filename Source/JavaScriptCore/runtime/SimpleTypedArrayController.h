@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include "Handle.h"
+#include "JSCHandle.h"
 #include "TypedArrayController.h"
 #include "WeakHandleOwner.h"
 
@@ -58,8 +58,8 @@ public:
 private:
     class JSArrayBufferOwner : public WeakHandleOwner {
     public:
-        bool isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown>, void* context, SlotVisitor&, const char** reason) override;
-        void finalize(JSC::Handle<JSC::Unknown>, void* context) override;
+        bool isReachableFromOpaqueRoots(JSC::JSCHandle<JSC::Unknown>, void* context, SlotVisitor&, const char** reason) override;
+        void finalize(JSC::JSCHandle<JSC::Unknown>, void* context) override;
     };
 
     JSArrayBufferOwner m_owner;

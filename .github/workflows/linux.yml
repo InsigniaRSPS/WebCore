@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: sudo apt update && sudo apt install ninja-build lld-8 gperf libgcrypt20 libgcrypt11-dev
+      - run: sudo apt update && sudo apt install ninja-build lld-8 gperf libgcrypt20 libgcrypt20-dev
 
       - name: Download UltralightCore
         uses: dawidd6/action-download-artifact@v2

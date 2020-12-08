@@ -63,7 +63,7 @@ public:
     class Handle;
 private:
     friend class Footer;
-    friend class Handle;
+    friend class JSCHandle;
 public:
     static constexpr size_t atomSize = 16; // bytes
 

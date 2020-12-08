@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include "Handle.h"
+#include "JSCHandle.h"
 #include "HandleBlock.h"
 #include "HeapCell.h"
 #include <wtf/DoublyLinkedList.h>
