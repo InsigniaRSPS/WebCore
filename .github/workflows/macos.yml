@@ -1,0 +1,42 @@
+name: macOS Build
+
+on: [ push ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: brew install ninja
+
+      - name: Download UltralightCore
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.ACCESS_TOKEN}}
+          workflow: macos.yml
+          workflow_conclusion: success
+          name: ultralight-core
+          path: deps/UltralightCore
+          repo: InsigniaRSPS/UltralightCore-src
+
+      - name: Download WebKitLibraries
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.ACCESS_TOKEN}}
+          workflow: macos.yml
+          workflow_conclusion: success
+          name: webkitlibraries
+          path: deps/WebKitLibraries
+          repo: InsigniaRSPS/WebCore-deps
+
+      - name: Build WebCore
+        run: ./make.sh
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: webcore
+          path: build/out/
