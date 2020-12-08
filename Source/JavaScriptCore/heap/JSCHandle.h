@@ -138,7 +138,7 @@ private:
 
 template <typename Base> JSCHandle<JSObject> HandleConverter<Base, Unknown>::asObject() const
 {
-    return Handle<JSObject>::wrapSlot(static_cast<const Base*>(this)->slot());
+    return JSCHandle<JSObject>::wrapSlot(static_cast<const Base*>(this)->slot());
 }
 
 template <typename T, typename U> inline bool operator==(const JSCHandle<T>& a, const JSCHandle<U>& b)

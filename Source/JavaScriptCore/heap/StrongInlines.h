@@ -39,7 +39,7 @@ inline Strong<T>::Strong(VM& vm, ExternalType value)
 
 template <typename T>
 inline Strong<T>::Strong(VM& vm, JSCHandle < T > handle)
-    : Handle<T>(vm.heap.handleSet()->allocate())
+    : JSCHandle<T>(vm.heap.handleSet()->allocate())
 {
     set(handle.get());
 }

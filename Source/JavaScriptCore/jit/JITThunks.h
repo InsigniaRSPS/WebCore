@@ -68,7 +68,7 @@ public:
     void clearHostFunctionStubs();
 
 private:
-    void finalize(Handle<Unknown>, void* context) override;
+    void finalize(JSCHandle<Unknown>, void* context) override;
     
     typedef HashMap<ThunkGenerator, MacroAssemblerCodeRef<JITThunkPtrTag>> CTIStubMap;
     CTIStubMap m_ctiStubMap;

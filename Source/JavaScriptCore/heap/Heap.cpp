@@ -2432,7 +2432,7 @@ void Heap::addFinalizer(JSCell* cell, Finalizer finalizer)
     WeakSet::allocate(cell, &m_finalizerOwner, reinterpret_cast<void*>(finalizer)); // Balanced by FinalizerOwner::finalize().
 }
 
-void Heap::FinalizerOwner::finalize(Handle<Unknown> handle, void* context)
+void Heap::FinalizerOwner::finalize(JSCHandle<Unknown> handle, void* context)
 {
     HandleSlot slot = handle.slot();
     Finalizer finalizer = reinterpret_cast<Finalizer>(context);
