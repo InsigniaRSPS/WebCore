@@ -11,6 +11,10 @@ endif ()
 # Allow relocatable binaries on Linux, load from executable path
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-rpath='$ORIGIN'")
 
+if (STATIC_BUILD)
+    add_definitions(-DULTRALIGHT_STATIC_BUILD -DJS_NO_EXPORT)
+endif ()
+    
 WEBKIT_OPTION_BEGIN()
 WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_3D_TRANSFORMS PUBLIC ON)
 WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_ACCELERATED_2D_CANVAS PUBLIC OFF)
@@ -90,7 +94,14 @@ set(JavaScriptCore_LIBRARY_TYPE SHARED)
 set(WTF_LIBRARY_TYPE SHARED)
 
 link_directories("${WEBKIT_LIBRARIES_DIR}/lib")
-link_directories("${ULTRALIGHTCORE_DIR}/bin")
+
+if (STATIC_BUILD)
+   message("its a static build dawg")
+   link_directories("${ULTRALIGHTCORE_DIR}/lib")
+else()
+   link_directories("${ULTRALIGHTCORE_DIR}/bin")
+endif ()
+
 set(ICU_LIBRARIES ${WEBKIT_LIBRARIES_DIR}/lib/libicui18n.a
                   ${WEBKIT_LIBRARIES_DIR}/lib/libicuuc.a
                   ${WEBKIT_LIBRARIES_DIR}/lib/libicudata.a)

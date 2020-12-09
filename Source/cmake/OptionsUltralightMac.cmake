@@ -11,6 +11,10 @@ else ()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -arch x86_64 -march=core2 -mtune=haswell -Oz -DNDEBUG -fPIC -std=gnu++14 -stdlib=libc++ -Wno-trigraphs -fno-exceptions -Wno-missing-field-initializers -Wnon-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wsign-compare -Wno-shorten-64-to-32 -Wno-c++11-extensions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wdeprecated-declarations -Winvalid-offsetof -fvisibility=hidden -fno-threadsafe-statics -Wno-sign-conversion -Winfinite-recursion -Wmove -Wno-comma -Wblock-capture-autoreleasing -Wno-strict-prototypes -Wno-nonportable-include-path -frtti")
 endif ()
 
+if (STATIC_BUILD)
+   add_definitions(-DULTRALIGHT_STATIC_BUILD -DJS_NO_EXPORT)
+endif ()
+    
 WEBKIT_OPTION_BEGIN()
 WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_3D_TRANSFORMS PUBLIC ON)
 WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_ACCELERATED_2D_CANVAS PUBLIC OFF)
@@ -91,7 +95,14 @@ link_directories("${WEBKIT_LIBRARIES_DIR}/lib")
 set(ICU_LIBRARIES ${WEBKIT_LIBRARIES_DIR}/lib/libicuuc.a
                   ${WEBKIT_LIBRARIES_DIR}/lib/libicui18n.a
                   ${WEBKIT_LIBRARIES_DIR}/lib/libicudata.a)
-link_directories("${ULTRALIGHTCORE_DIR}/bin")
+                  
+if (STATIC_BUILD)
+   add_definitions(-DULTRALIGHT_STATIC_BUILD -DJS_NO_EXPORT)
+   link_directories("${ULTRALIGHTCORE_DIR}/lib")
+else()
+   link_directories("${ULTRALIGHTCORE_DIR}/bin")
+endif ()
+
 set(CMAKE_MACOSX_RPATH 1)
 
 set(ENABLE_CHANNEL_MESSAGING ON)
