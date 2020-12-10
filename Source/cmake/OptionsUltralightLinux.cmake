@@ -10,10 +10,6 @@ endif ()
 
 # Allow relocatable binaries on Linux, load from executable path
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-rpath='$ORIGIN'")
-
-if (STATIC_BUILD)
-    add_definitions(-DULTRALIGHT_STATIC_BUILD -DJS_NO_EXPORT)
-endif ()
     
 WEBKIT_OPTION_BEGIN()
 WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_3D_TRANSFORMS PUBLIC ON)
@@ -81,6 +77,10 @@ if (NOT WEBKIT_LIBRARIES_DIR)
     set(WEBKIT_LIBRARIES_DIR "${CMAKE_SOURCE_DIR}/deps/WebKitLibraries")
 endif ()
 
+if (STATIC_BUILD)
+    add_definitions(-DULTRALIGHT_STATIC_BUILD -DJS_NO_EXPORT)
+endif ()
+
 include_directories("${CMAKE_BINARY_DIR}/DerivedSources/ForwardingHeaders" "${CMAKE_BINARY_DIR}/DerivedSources" "${WEBKIT_LIBRARIES_DIR}/include")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
@@ -96,7 +96,6 @@ set(WTF_LIBRARY_TYPE SHARED)
 link_directories("${WEBKIT_LIBRARIES_DIR}/lib")
 
 if (STATIC_BUILD)
-   message("its a static build dawg")
    link_directories("${ULTRALIGHTCORE_DIR}/lib")
 else()
    link_directories("${ULTRALIGHTCORE_DIR}/bin")

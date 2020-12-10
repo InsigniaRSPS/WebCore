@@ -5,7 +5,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_definitions(-DBUILDING_WITH_CMAKE=1)
 add_definitions(-DHAVE_CONFIG_H=1)
 
-option(USE_THIN_ARCHIVES "Produce all static libraries as thin archives" ON)
+option(USE_THIN_ARCHIVES "Produce all static libraries as thin archives" OFF)
 if (USE_THIN_ARCHIVES)
     execute_process(COMMAND ${CMAKE_AR} -V OUTPUT_VARIABLE AR_VERSION)
     if ("${AR_VERSION}" MATCHES "^GNU ar")
