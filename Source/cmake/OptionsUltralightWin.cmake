@@ -138,13 +138,13 @@ if (MSVC)
         set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /DEBUG /OPT:NOREF /OPT:NOICF /DEBUG:FASTLINK")
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /DEBUG /OPT:NOREF /OPT:NOICF /DEBUG:FASTLINK")
     else ()
-        add_compile_options(/O1 /Os /Gy /Gw /cgthreads8)
+        add_compile_options(/O1)
         
         # Uncomment this block to add PDB to optimized release builds
         # add_compile_options(/Zi)
         # set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /OPT:REF /OPT:ICF /DEBUG")
         # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /OPT:REF /OPT:ICF /DEBUG")
-        # set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /OPT:REF /OPT:ICF /DEBUG")
+        # set(CMAKE_MODULE_LINKER_FLAGNCREMENTAL:NONCREMENTAL:NOS "${CMAKE_MODULE_LINKER_FLAGS} /OPT:REF /OPT:ICF /DEBUG")
         # set(CMAKE_STATIC_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS} /OPT:REF /OPT:ICF /DEBUG")
     endif ()
 
