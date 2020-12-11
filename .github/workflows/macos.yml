@@ -36,10 +36,8 @@ jobs:
       - name: Build WebCore
         run: ./make
 
-      - name: Check if build exists
-        run: (test -d "build/out") || exit 1
-
       - uses: actions/upload-artifact@v2
         with:
           name: webcore
           path: build/out/
+          if-no-files-found: error

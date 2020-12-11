@@ -40,3 +40,4 @@ jobs:
         with:
           name: webcore
           path: build_release_x64_static_MT_no_jit/out/
+          if-no-files-found: error
